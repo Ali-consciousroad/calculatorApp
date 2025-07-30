@@ -1,7 +1,7 @@
 // Import React hooks
 import {
   useState,
-  useRef
+  useRef // React hook primarily used for accessing and manipulating DOM elements directly
 } from "react";
 // Import CSS file
 import "./App.css";
@@ -9,15 +9,20 @@ import "./App.css";
 // Define App component
 function App() {
   // Initialize input and result reference hooks
-  const inputRef = useRef(null);
-  const resultRef = useRef(null);
+  const inputRef = useRef(null);      // useRef we use to reference to input field
+  const resultRef = useRef(null);     // useRef we use to reference the result field 
   // Initialize state for result with initial value 0
   const [result, setResult] = useState(0);
 
   // Define plus function to add input value to result
   function plus(e) {
-    e.preventDefault();
-    setResult((result) => result + Number(inputRef.current.value));
+    // Prevent the default form submissiion behavior / page reload.
+    e.preventDefault(); 
+    // Reminder
+    // Because here state depends on the previous state " result ", to be sure the freshest state is used and because React batch multiple state update. 
+    // Functional update is used to prevent this problem in the case of multiple fast click 
+    // Functional update ensures sequential correctness. 
+    setResult((result) => result + Number(inputRef.current.value)); 
   };
 
   // Define minus function to subtract input value from result
